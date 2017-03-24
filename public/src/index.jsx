@@ -6,6 +6,7 @@ import CreateTrip from './components/CreateTrip.jsx';
 import UploadReceipt from './components/Upload.jsx';
 import Profile from './components/Profile.jsx';
 import Login from './components/Login.jsx';
+import MemberSummary from './components/memberSummary.jsx'
 import PrivateRoute from './components/PrivateRoute.jsx';
 import Util from './lib/util.js';
 import CreateItem from './components/CreateItem.jsx';
@@ -22,7 +23,45 @@ class App extends React.Component {
       receiptName:'',
       items:[],
       name:'',
-      amount: 0
+      amount: 0,
+      dummyData : {
+        trip: 'Japan2016',
+        tripAdmin: 'Jon',
+        receiptName: 'Receipt01',
+        receiptUrl: 'google.com/receipt01.jpg',
+        payor: 'Jon',
+        items_split: {
+          item_split1: {
+            item: 'Burger',
+            split: {
+              payees: ['May', 'June'],
+              comment: 'Good food.',
+              totalRawPx: 100
+            }
+          },
+          item_split2: {
+            item: 'Fries',
+            split: {
+              payees: ['May'],
+              comment: 'Pay back in 2 days.',
+              totalRawPx: 20
+            }
+          },
+          item_split3: {
+            item: 'Pizza',
+            split: {
+              payees: ['Kevin','James','Kim'],
+              comment: 'Good food.',
+              totalRawPx: 100
+            }
+          },
+        },
+        billBreakdown: {
+          'Bill total': 145,
+          'TotalTax': 15,
+          'TotalTip': 10
+        }
+      }
     }
     this.verifyAuthentication = this.verifyAuthentication.bind(this);
     this.handleClickLogout = this.handleClickLogout.bind(this);
@@ -129,6 +168,7 @@ class App extends React.Component {
               <li><Link to="/upload-receipt">Upload Receipt</Link></li>
               <li><Link to="/profile">Profile</Link></li>
               <li><Link to="/additems">Add Items</Link></li>
+              <li><Link to="/memberSummary">Member Summary</Link></li>
               <li><Link to="/create-trip">Create Trip</Link></li>
               {this.state.isAuthenticated ? null : <li><Link to="/login">Login</Link></li>}
               {!this.state.isAuthenticated ? null : <li><Link to="/logout" onClick={this.handleClickLogout}>Logout</Link></li>}
@@ -164,6 +204,8 @@ class App extends React.Component {
               onNameChange={this.onNameChange}
               onPriceChange={this.onPriceChange}
               deleteItem={this.deleteItem}/>
+            <PrivateRoute path='/memberSummary' isAuthenticated={this.state.isAuthenticated} component={MemberSummary}
+              dummyData={this.state.dummyData}/>
             <Route path ="/login" render={() => (
               this.state.isAuthenticated ? <Redirect to="/" /> : <Login />
             )}/>
