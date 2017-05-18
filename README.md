@@ -1,4 +1,4 @@
-# The Project
+# Diff
 
 > Shared payment for travel
 
@@ -19,18 +19,13 @@
 1. [Roadmap](#roadmap)
 1. [Contributing](#contributing)
 
-## Usage
-
-> Some usage instructions
 
 ## Requirements
 
 - Node 6.4.x
 - Express
--
 - React
 - MYSQL
-- 
 
 ## Development
 
